@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+  <head>
+
+    <meta charset="UTF-8">
+    <title>Trivia Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-light bg-light row jumbotron">
+  <a class="navbar-brand mx-auto display-4">SO YOU THINK YOU KNOW!</a>
+  <form class="form-inline">
+    <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+    <button class="btn btn-outline-success my-2 my-sm-0">Start</button>
+  </form>
+</nav>
+<div class="container">
+    <div id="time-left"></div>
+
+    <div>
+      
+      <div class="card">
+  <div class="card-body" id="question">
+   
+  </div>
+</div>
+
+    </div>
+
+<br>
+
+
+    <div>
+      <div class="card">
+  <div class="card-body" id="options">
+    
+  </div>
+</div>
+
+    </div>
+</div>
+   
+
+
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Script -->
+    <script>
+
+      
+      var questions = [
+
+      {"question":'what is the shape of an egg?',
+       "guesses":['round','square','I dont know', 'hint (will count as loss)'],
+       "answer":'square'}, 
+
+       {"question":'what is the square root of -20934?',
+       "guesses":['wait let me grab a calculator','i dont know','-1', 'help (will count as a loss)'],
+       "answer":'wait let me grab a calculator'},
+
+       {"question":'If eggs could fly, would chickens exist?',
+       "guesses":['yes','no','maybe so', 'I wouldnt know'],
+       "answer":'maybe so'}
+
+      ];
+
+      var currentquestion = "";
+      var currentQ = 0;
+      var corrects = 0;
+      var incorrects = 0;
+      var time = 10;
+      var masterkey = "";
+
+      var intervaliId;
+
+      start();
+
+
+      function start(){
+
+       intervaliId = setInterval(decrement, 1000);
+
+      }
+// function fiveSeconds() {
+
+        $('#options').append("About 10 Seconds Left!");
+
+      function decrement(){
+
+        time--;
+
+        $('#time-left').html("<h2>" + time + "</h2>");
+
+        if (time === 0){
+          incorrects++;
+          console.log(incorrects +" ; " + time);
+          currentQ++;
+         
+          time=10;
+      
+          endgame();
+          updateQuestion();
+
+        
+        }
+
+          // setTimeout(fiveSeconds,)
+
+          // var fiveSeconds = setTimeout(function(){
+          //   $('#options').html("That is incorrect, the correct answer is:  " + '"' + masterkey + '"');
+          //   updateQuestion();
+          // }, 10000);
+
+      }
+
+
+      function endgame(){
+ if (incorrects + corrects === 3) {
+
+            console.log('incorrects '+ incorrects);
+            console.log('corrects' + corrects);
+
+            $(".container").html("GAME OVER, YOUR SCORE IS " + corrects);
+            time = 999999999999;
+          // alert("this game is over, your score is " + corrects);
+
+
+        } 
+
+      }
+
+function updateQuestion(){
+
+  masterkey = questions[currentQ].answer
+  currentquestion = questions[currentQ].question
+ $("#options").empty();
+  $("#question").html(currentquestion);
+      console.log(currentquestion);
+
+console.log(questions[currentQ].guesses);
+    for (i=0; i<questions[currentQ].guesses.length; i++){
+      console.log("inside");
+
+
+      var btn = $('<button>');
+
+      btn.attr("data-g", questions[currentQ].guesses[i]);
+      btn.text(questions[currentQ].guesses[i]);
+      btn.click(checker);
+      $("#options").append(btn);
+      time = 10;
+
+    }
+
+
+      };
+
+      function checker(){
+
+       
+
+      
+        if ($(this).attr("data-g") === questions[currentQ].answer) {
+            console.log('true');
+            currentQ++;
+            corrects++;
+            alert("that is correct");
+            endgame();
+            updateQuestion();
+            
+        } 
+
+        else {
+
+          console.log('false');
+          incorrects++;
+          currentQ++;
+          // setTimeout(fiveSeconds,);
+          // fiveSeconds();
+          alert("That is incorrect, the correct answer is:  " + '"' + masterkey + '"');
+          endgame();
+          updateQuestion();
+
+          
+        }
+}
+updateQuestion();
+     // run on start
+
+      // setTimeout(tenSeconds ,)
+
+      //     var fiveSeconds = setTimeout(function(){
+      //       $('#options').html("That is incorrect, the correct answer is:  " + '"' + masterkey + '"');
+      //       alert("testing");
+      //     }, 10000);
+
+// updateQuestion();
+      
+      // // ---------------------
+      //   //CODE STEP TWO HERE
+      // // ---------------------
+
+
+      // // Step 3:
+      // // Fill in the blanks to these functions.
+      // function fiveSeconds() {
+
+      //   $('#options').append("TIME IS UP, THE CORRECT ANSWER IS: " + '"' + masterKey + '"');
+
+      //   console.log(fiveSeconds);
+
+      
+        
+      // }
+
+
+      
+
+    </script>
+
+  </body>
+
+</html>
