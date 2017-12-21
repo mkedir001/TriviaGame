@@ -26,7 +26,7 @@
       
       <div class="card">
   <div class="card-body" id="question">
-   
+   <button type="button" class="btn btn-primary">Primary</button>
   </div>
 </div>
 
@@ -37,7 +37,7 @@
 
     <div>
       <div class="card">
-  <div class="card-body" id="options">
+  <div class="card-body ml-5" id="options">
     
   </div>
 </div>
@@ -67,7 +67,11 @@
 
        {"question":'If eggs could fly, would chickens exist?',
        "guesses":['yes','no','maybe so', 'I wouldnt know'],
-       "answer":'maybe so'}
+       "answer":'maybe so'},
+
+       {"question":'what do you call one wizard, 2 assistant wizards and a bunch of students in one room?',
+       "guesses":['Hogwarts coding bootcamp','wizards arent real','room full of crazies', 'A bunch of coders'],
+       "answer":'wizards arent real'}
 
       ];
 
@@ -122,7 +126,7 @@
 
 
       function endgame(){
- if (incorrects + corrects === 3) {
+ if (incorrects + corrects === questions.length) {
 
             console.log('incorrects '+ incorrects);
             console.log('corrects' + corrects);
@@ -171,7 +175,11 @@ console.log(questions[currentQ].guesses);
             console.log('true');
             currentQ++;
             corrects++;
-            alert("that is correct");
+            $("#options").html("yes, that is correct");
+            // alert("that is correct");
+            setTimeout(fiveSeconds,);
+            clearInterval(intervaliId);
+            time = 10;
             endgame();
             updateQuestion();
             
@@ -184,7 +192,10 @@ console.log(questions[currentQ].guesses);
           currentQ++;
           // setTimeout(fiveSeconds,);
           // fiveSeconds();
-          alert("That is incorrect, the correct answer is:  " + '"' + masterkey + '"');
+          $("#options").html("That is incorrect, the correct answer is:  " + '"' + masterkey + '"');
+          setTimeout(fiveSeconds,);
+          time = 10;
+          // alert("That is incorrect, the correct answer is:  " + '"' + masterkey + '"');
           endgame();
           updateQuestion();
 
